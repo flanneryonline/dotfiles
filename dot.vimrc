@@ -13,10 +13,12 @@ endif
 "    set shellslash
 "endif
 
-if has("autocmd")
-  autocmd bufwritepost .vimrc source $MYVIMRC
-  autocmd bufwritepost _vimrc source $MYVIMRC
-endif
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+"if has("autocmd")
+"  autocmd bufwritepost .vimrc source $MYVIMRC
+"  autocmd bufwritepost _vimrc source $MYVIMRC
+"endif
 
 if version >= 704 && has("patch-7.4-399")
     set cryptmethod=blowfish2
@@ -121,8 +123,12 @@ elseif g:os == "win"
     inoremap <C-BS> <C-w>
 endif
 
+" paste in command line
+cnoremap <C-V> <C-R>*
+
 " Make x not yank to register
 noremap x "_x
+xnoremap p pgvy
 
 "UI Settings 
 
@@ -208,6 +214,11 @@ if !empty(glob(g:plug_dir))
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'PProvost/vim-ps1'
+    Plug 'ekalinin/Dockerfile.vim'
+    Plug 'FelikZ/ctrlp-py-matcher'
+    Plug 'OmniSharp/omnisharp-vim'
+    Plug 'tpope/vim-dispatch'
+    
     call plug#end()
 endif
 
@@ -255,6 +266,7 @@ let g:ctrlp_match_window='position:bottom,order:btt,min:1,max:10,results:100'
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_switch_buffer = 'vh'
 let g:ctrlp_working_path_mode = 0
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 nnoremap <silent> <leader>ff :CtrlP<CR>
 nnoremap <silent> <leader>fb :CtrlPBuffer<CR>
