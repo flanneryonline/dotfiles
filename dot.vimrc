@@ -134,8 +134,10 @@ xnoremap p pgvy
 
 if has("gui_running")
     set title
+    set lines=40 columns=165
     if g:os == "win"
         set guifont=Consolas:h10
+        set guioptions+=r
     endif
 else
     set guioptions+=aA
@@ -216,8 +218,8 @@ if !empty(glob(g:plug_dir))
     Plug 'PProvost/vim-ps1'
     Plug 'ekalinin/Dockerfile.vim'
     Plug 'FelikZ/ctrlp-py-matcher'
-    Plug 'OmniSharp/omnisharp-vim'
     Plug 'tpope/vim-dispatch'
+    Plug 'Valloric/YouCompleteMe'
     
     call plug#end()
 endif
