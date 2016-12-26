@@ -16,9 +16,17 @@ alias lsa='ls -lsa'
 alias vi='vim'
 alias back='popd'
 
-bindkey '^[[1~' beginning-of-line
-bindkey '^[[3~' delete-char
-bindkey '^[[4~' end-of-line
+#try this if others dont work
+#bindkey '^[[1~' beginning-of-line
+#bindkey '^[[3~' delete-char
+#bindkey '^[[4~' end-of-line
+#from csh
+bindkey '\e[1~' beginning-of-line   # Home
+bindkey '\e[7~' beginning-of-line   # Home rxvt
+bindkey '\e[2~' overwrite-mode      # Ins
+bindkey '\e[3~' delete-char         # Delete
+bindkey '\e[4~' end-of-line         # End
+bindkey '\e[8~' end-of-line         # End rxvt
 
 ##
 # Completion
