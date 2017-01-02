@@ -1,1 +1,0 @@
-cmake -DPYTHON_INCLUDE_DIR=C:\Users\Patrick\AppData\Local\Programs\Python\Python35-32\include -DPYTHON_LIBRARY=C:\Users\Patrick\AppData\Local\Programs\Python\Python35-32\libs\python35.lib -DUSE_PYTHON2=OFF -G "Visual Studio 14" -DPATH_TO_LLVM_ROOT="C:\Program Files (x86)\LLVM" . ~/vimfiles/bundle/YouCompleteMe/third_party/ycmd/cpp

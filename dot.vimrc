@@ -219,8 +219,31 @@ if !empty(glob(g:plug_dir))
     Plug 'ekalinin/Dockerfile.vim'
     Plug 'FelikZ/ctrlp-py-matcher'
     Plug 'tpope/vim-dispatch'
-    Plug 'Valloric/YouCompleteMe'
+    Plug 'Shougo/echodoc.vim'
     
+    "must have version 8
+    if v:version >= 800 
+        if has('python') || has('python3')
+            Plug 'maralla/completor.vim'
+
+            inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+            inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+            inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+            
+            if g:os == "win"
+                if has('python3')
+                    let g:completor_python_binary = '/usr/local/bin/python3'
+                else
+                    let g:completor_python_binary = '/usr/local/bin/python'
+                endif
+                let g:completor_clang_binary = '/usr/bin/clang'
+            else
+                let g:completor_python_binary = '~/AppData/Local/Programs/Python/Python35-32/python.exe'
+                let g:completor_clang_binary = 'C:/Program Files (x86)/LLVM/bin/clang.exe'
+            endif
+        endif
+    endif
+
     call plug#end()
 endif
 

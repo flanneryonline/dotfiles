@@ -11,10 +11,11 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt APPEND_HISTORY
 setopt EXTENDED_HISTORY
 
-alias ls='pwd; ls -G'
+alias ls='ls -G'
 alias lsa='ls -lsa'
 alias vi='vim'
 alias back='popd'
+alias upgrade='pkg update && pkg upgrade && pkg autoremove && pkg audit -F && env PAGER=cat freebsd-update fetch install; pkg clean -ay; for i in /var/db/freebsd-update/files/* ; do rm "$i"; done'
 
 #try this if others dont work
 #bindkey '^[[1~' beginning-of-line
