@@ -231,15 +231,15 @@ if !empty(glob(g:plug_dir))
             inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
             
             if g:os == "win"
+                let g:completor_python_binary = '~/AppData/Local/Programs/Python/Python35-32/python.exe'
+                let g:completor_clang_binary = 'C:/Program Files (x86)/LLVM/bin/clang.exe'
+            else
                 if has('python3')
                     let g:completor_python_binary = '/usr/local/bin/python3'
                 else
                     let g:completor_python_binary = '/usr/local/bin/python'
                 endif
                 let g:completor_clang_binary = '/usr/bin/clang'
-            else
-                let g:completor_python_binary = '~/AppData/Local/Programs/Python/Python35-32/python.exe'
-                let g:completor_clang_binary = 'C:/Program Files (x86)/LLVM/bin/clang.exe'
             endif
         endif
     endif
