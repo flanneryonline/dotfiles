@@ -255,11 +255,7 @@ command! WQ wq
 
 if !empty(glob(g:luc_dir))
     colorscheme lucius
-    if has("gui_running")
-        LuciusLight
-    else
-        LuciusDark
-    endif
+    LuciusLightHighContrast
 endif
 
 " Airline: {{{2 --------------------------------------------------------------
