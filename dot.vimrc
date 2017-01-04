@@ -40,7 +40,7 @@ set colorcolumn=+1
 set cursorline
 set display+=lastline
 set fillchars=
-set guioptions=egc
+set guioptions=egcrb
 set laststatus=2
 set lazyredraw
 set listchars=tab:\|\ ,trail:.,extends:>,precedes:<,eol:$
