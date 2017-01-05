@@ -13,13 +13,6 @@ endif
 "    set shellslash
 "endif
 
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-"if has("autocmd")
-"  autocmd bufwritepost .vimrc source $MYVIMRC
-"  autocmd bufwritepost _vimrc source $MYVIMRC
-"endif
-
 if version >= 704 && has("patch-7.4-399")
     set cryptmethod=blowfish2
 elseif version >= 703
@@ -35,7 +28,7 @@ set nomodeline
 
 " UI Settings: {{{2 ----------------------------------------------------------
 
-set cmdheight=1
+set cmdheight=2
 set colorcolumn=+1
 set cursorline
 set display+=lastline
@@ -99,6 +92,9 @@ set shiftround
 
 " File Settings: {{{2 --------------------------------------------------------
 
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
 filetype plugin indent on
 set autoread
 set fileformats=unix,dos
@@ -154,6 +150,12 @@ else
     set clipboard=
 endif
 
+" Save command typos
+command! Q q
+command! W w
+command! Wq wq
+command! WQ wq
+
 " Search Settings: {{{2 ------------------------------------------------------
 
 set ignorecase
@@ -191,6 +193,8 @@ set wildignore+=*.bak,*~,tmp " misc files
 set wildignore+=.svn\*,.git\* " scm
 set wildignore+=cscope.out,tags " vim
 
+" Plugins: {{{2---------------------------------------------------------------
+
 if g:os == "win"
     let g:plug_dir = "~/vimfiles/autoload/plug.vim"
     let g:luc_dir = "~/vimfiles/bundle/vim-lucius/colors/lucius.vim"
@@ -199,7 +203,6 @@ else
     let g:luc_dir = "~/.vim/bundle/vim-lucius/colors/lucius.vim"
 endif
 
-"Plugins
 if !empty(glob(g:plug_dir))
     if has("win32") || has("win64")
         call plug#begin('~/vimfiles/bundle')
@@ -207,52 +210,39 @@ if !empty(glob(g:plug_dir))
         call plug#begin('~/.vim/bundle')
     endif
 
-    Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'jonathanfilip/vim-lucius'
-    Plug 'scrooloose/nerdtree'
-    Plug 'scrooloose/syntastic'
-    Plug 'Xuyuanp/nerdtree-git-plugin'
-    Plug 'tpope/vim-fugitive'
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    Plug 'PProvost/vim-ps1'
-    Plug 'ekalinin/Dockerfile.vim'
-    Plug 'FelikZ/ctrlp-py-matcher'
-    Plug 'tpope/vim-dispatch'
-    Plug 'Shougo/echodoc.vim'
-    
-    "must have version 8
-    if v:version >= 800 
-        if has('python') || has('python3')
+    "must have python
+    if has('python') || has('python3')
+        "must have version 8
+        if v:version >= 800 
             Plug 'maralla/completor.vim'
-
-            inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-            inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-            inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-            
-            if g:os == "win"
-                let g:completor_python_binary = '~/AppData/Local/Programs/Python/Python35-32/python.exe'
-                let g:completor_clang_binary = 'C:/Program Files (x86)/LLVM/bin/clang.exe'
-            else
-                if has('python3')
-                    let g:completor_python_binary = '/usr/local/bin/python3'
-                else
-                    let g:completor_python_binary = '/usr/local/bin/python'
-                endif
-                let g:completor_clang_binary = '/usr/bin/clang'
-            endif
         endif
     endif
 
+    "Themes
+    Plug 'jonathanfilip/vim-lucius'         "Jon's theme
+    Plug 'vim-airline/vim-airline'          "Info bar
+    Plug 'vim-airline/vim-airline-themes'   "Info bar theme
+    
+    "Files
+    Plug 'ctrlpvim/ctrlp.vim'               "Search files/buffers
+    Plug 'scrooloose/nerdtree'              "file tree
+    Plug 'Xuyuanp/nerdtree-git-plugin'      "git integration
+    Plug 'tpope/vim-fugitive'               "git plugin
+
+    "Syntax/Highlights
+    Plug 'scrooloose/syntastic'             "syntax checking
+    Plug 'PProvost/vim-ps1'                 "powershell highlighting
+    Plug 'ekalinin/Dockerfile.vim'          "Dockerfile highlighting
+    Plug 'Shougo/echodoc.vim'               "function completion
+    Plug 'OmniSharp/omnisharp-vim'          "c# .net
+
+    "Helper
+    Plug 'tpope/vim-surround'               "change surrounding text
+    
     call plug#end()
 endif
 
-" Save command typos
-command! Q q
-command! W w
-command! Wq wq
-command! WQ wq
-
+" Don't load theme if plugins have not been download yet
 if !empty(glob(g:luc_dir))
     colorscheme lucius
     LuciusLightHighContrast
@@ -287,7 +277,6 @@ let g:ctrlp_match_window='position:bottom,order:btt,min:1,max:10,results:100'
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_switch_buffer = 'vh'
 let g:ctrlp_working_path_mode = 0
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 nnoremap <silent> <leader>ff :CtrlP<CR>
 nnoremap <silent> <leader>fb :CtrlPBuffer<CR>
@@ -297,4 +286,39 @@ nnoremap <silent> <leader>ft :CtrlPBufTag<CR>
 nnoremap <silent> <leader>e :CtrlP<CR>
 nnoremap <silent> <leader>b :CtrlPBuffer<CR>
 
+" Syntastic: {{{2-------------------------------------------------------------
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" NERDTree: {{{2--------------------------------------------------------------
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+nnoremap <C-n> :NERDTreeToggle<CR>
+
+" Completer: {{{2--------------------------------------------------------------
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+
+if g:os == "win"
+    let g:completor_python_binary = '~/AppData/Local/Programs/Python/Python35-32/python.exe'
+    let g:completor_clang_binary = 'C:/Program Files (x86)/LLVM/bin/clang.exe'
+else
+    if has('python3')
+        let g:completor_python_binary = '/usr/local/bin/python3'
+    else
+        let g:completor_python_binary = '/usr/local/bin/python'
+    endif
+    let g:completor_clang_binary = '/usr/bin/clang'
+endif
 
