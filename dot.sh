@@ -17,10 +17,11 @@ ln -s dot.tmux.conf ../.tmux.conf
 #freebsd stuff
 for file in ../.cshrc ../.login_conf ../.login_conf.db ../.profile ../.shrc
 do
-    [ -e $file ] && rm $file
+    [ -f $file ] && rm $file
+    [ -L $file ] && rm $file
 done
 ln -s dotfiles/dot.cshrc ../.cshrc
-ln -s dotfiles/dot.login_conf ../.login.conf
+ln -s dotfiles/dot.login_conf ../.login_conf
 ln -s dotfiles/dot.login_conf.db ../.login_conf.db
 ln -s dotfiles/dot.profile ../.profile
 ln -s dotfiles/dot.shrc ../.shrc
