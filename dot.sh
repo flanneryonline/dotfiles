@@ -1,12 +1,11 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 #move working directory in case this is run from somewhere else
-get_local="`dirname "$0"`"
-cd "`cd -P "$get_local" && pwd `"
+cd -P "`dirname "$0"`"
 
-for file in ../.cshrc ../.login_conf ../.login_conf.db ../.profile ../.shrc
+for file in ../.cshrc ../.login_conf ../.login_conf.db ../.profile ../.shrc ../.vimrc ../.zshrc ../.tmux.conf
 do
-    [ -f $file ] && rm $file
+    [ -e $file ] && rm $file
     [ -L $file ] && rm $file
 done
 
