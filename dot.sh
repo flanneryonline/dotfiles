@@ -15,11 +15,14 @@ ln -s dot.zshrc ../.zshrc
 ln -s dot.tmux.conf ../.tmux.conf
 
 #freebsd stuff
-rm ../.cshrc ../.login_conf ../.login_conf.db ../.profile ../.shrc
-ln -s dot.cshrc ../.cshrc
-ln -s dot.login_conf ../.login.conf
-ln -s dot.login_conf.db ../.login_conf.db
-ln -s dot.profile ../.profile
-ln -s dot.shrc ../.shrc
+for file in ../.cshrc ../.login_conf ../.login_conf.db ../.profile ../.shrc
+do
+    [ -e $file ] && rm $file
+done
+ln -s dotfiles/dot.cshrc ../.cshrc
+ln -s dotfiles/dot.login_conf ../.login.conf
+ln -s dotfiles/dot.login_conf.db ../.login_conf.db
+ln -s dotfiles/dot.profile ../.profile
+ln -s dotfiles/dot.shrc ../.shrc
 
 exit 0
