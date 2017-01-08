@@ -17,7 +17,7 @@ umask 22
 set path = (/sbin /bin /usr/sbin /usr/bin /usr/local/sbin /usr/local/bin)
 
 setenv  EDITOR  vi
-setenv  PAGER   more
+setenv  PAGER  cat 
 setenv  BLOCKSIZE       K
 
 if ($?prompt) then

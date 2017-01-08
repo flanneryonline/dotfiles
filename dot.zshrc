@@ -68,3 +68,16 @@ unsetopt hup                    # no hup signal at shell exit
 unsetopt ignore_eof             # do not exit on end-of-file
 unsetopt list_beep              # no bell on ambiguous completion
 unsetopt rm_star_silent         # ask for confirmation for `rm *' or `rm path/*'
+
+
+#tmux
+function tmux_launch() {
+    if [ -n "${TMUX// }" ]
+    then
+        echo "Already in tmux!"
+    else
+        tmux -2 new -A -s main
+    fi
+}
+ 
+alias launch=tmux_launch

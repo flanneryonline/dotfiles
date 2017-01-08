@@ -15,8 +15,8 @@
 # serial line.
 # TERM=xterm; 	export TERM
 
-EDITOR=vi;   	export EDITOR
-PAGER=more;  	export PAGER
+EDITOR=vim;   	export EDITOR
+PAGER=cat;  	export PAGER
 
 # set ENV to a file invoked each time sh is started for interactive use.
 ENV=$HOME/.shrc; export ENV
