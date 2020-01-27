@@ -3,11 +3,11 @@
 #move working directory in case this is run from somewhere else
 cd -P "`dirname "$0"`"
 
-for file in (ls)
+for file in $(ls -ld .* | grep -v '^d' | awk '{print $9}')
 do
     [ -e ../$file ] && rm ../$file
     [ -L ../$file ] && rm ../$file
-    ln -s $file ../$file
+    ln -s dotfiles/$file ../$file
 done
 
 #vim
