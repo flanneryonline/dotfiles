@@ -245,7 +245,7 @@ endif
 " Don't load theme if plugins have not been download yet
 if !empty(glob(g:luc_dir))
     colorscheme lucius
-    LuciusLightHighContrast
+    LuciusDark
 endif
 
 " Airline: {{{2 --------------------------------------------------------------
