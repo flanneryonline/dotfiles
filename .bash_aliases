@@ -22,4 +22,29 @@ alias shutdown="$use_sudo shutdown -h now"
 
 alias rm='rm -I --preserve-root'
 
+#docker
+alias drmf='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
+alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
 
+#systemctl
+alias sc='$use_sudo systemctl'
+alias sreload='sc daemon-reload'
+alias sstop='sc stop'
+alias sstart='sc start'
+alias srestart='sc restart'
+
+function sdstart () {
+    sstart docker@$1
+}
+
+function sdstop () {
+    sstop docker@$1
+}
+
+function sdrestart () {
+    srestart docker@$1
+}
+
+function dupdate () {
+    sdrestart $1
+}
