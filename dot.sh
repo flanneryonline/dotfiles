@@ -11,6 +11,6 @@ do
 done
 
 #vim
-curl -sfLo ../.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+[ ! -e ../.vim/autoload/plug.vim ] && curl -sfLo ../.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 exit 0
