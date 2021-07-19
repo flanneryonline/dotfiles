@@ -29,3 +29,12 @@ alias sreload='sc daemon-reload'
 alias sstop='sc stop'
 alias sstart='sc start'
 alias srestart='sc restart'
+alias sstatus='sc status'
+
+#docker
+alias dstats='docker stats'
+
+function sdstats()
+{
+    docker stats $(docker ps -q --filter label=com.docker.compose.project=$1)
+}
