@@ -5,7 +5,7 @@ cd -P "`dirname "$0"`"
 
 for file in $(ls -ld .* | grep -v '^d' | awk '{print $9}')
 do
-    [ -e ../$file ] && rm ../$file
+    [ -e ../$file ] && mv ../$file ../$file.bak
     [ -L ../$file ] && rm ../$file
     ln -s dotfiles/$file ../$file
 done
